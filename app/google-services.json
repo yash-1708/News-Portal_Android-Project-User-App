@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "189805651271",
+    "firebase_url": "https://mcoenewsportal-1b262.firebaseio.com",
+    "project_id": "mcoenewsportal-1b262",
+    "storage_bucket": "mcoenewsportal-1b262.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189805651271:android:9c5fe95bc5176dae",
+        "android_client_info": {
+          "package_name": "te_compa.mcoe_news_portal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189805651271-vvq7kmmrb9dpb8sefs2srd2sj6fpksin.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "te_compa.mcoe_news_portal",
+            "certificate_hash": "f903424f577bad2b7b374f141e054aa91aa1c4db"
+          }
+        },
+        {
+          "client_id": "189805651271-nc3iabjjf7ua5a6210fdulv9p5dn0h2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL6W8ZSOatlfl5S4sYh4NkS67iofvYYT8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189805651271-nc3iabjjf7ua5a6210fdulv9p5dn0h2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
