@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MCOE TODAY</string>
+    <string name="app_name">MCOE Today</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -29,7 +29,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing username
         completions."
     </string>
-    <string name="title_activity_news_details">NewsDetails</string>
+    <string name="title_activity_news_details">News</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="General">General Notice</string>
     <string name="Sports">Sports News</string>

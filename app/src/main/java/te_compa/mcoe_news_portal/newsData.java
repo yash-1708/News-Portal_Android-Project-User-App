@@ -10,7 +10,7 @@ import java.util.Date;
 public class newsData implements Serializable {
     String newsTitle;
     String article;
-    Boolean approved;
+    boolean approved;
     Date date;
     String imgurl;
 
@@ -18,7 +18,7 @@ public class newsData implements Serializable {
 
     }
 
-    public newsData(String title, String art, Boolean approved1, String imageurl) {
+    public newsData(String title, String art, boolean approved1, String imageurl) {
         newsTitle = title;
         article = art;
         approved = approved1;
@@ -56,5 +56,13 @@ public class newsData implements Serializable {
 
     public void setImgurl(String imgurl) {
         this.imgurl = imgurl;
+    }
+
+    public boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }

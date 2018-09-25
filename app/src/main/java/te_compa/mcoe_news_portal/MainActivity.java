@@ -1,9 +1,15 @@
 package te_compa.mcoe_news_portal;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -55,15 +61,43 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-
+        if (!isOnline())
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("You are Offline...");
+            builder.setIcon(R.mipmap.ic_launcher);
+            builder.setMessage("Do you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Open Settings", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(Settings.ACTION_SETTINGS));
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,Submissions.class);
-                startActivity(i);
+                if(!isOnline())
+                {
+                    Toast.makeText(MainActivity.this,"You Are Offine!",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Intent i = new Intent(MainActivity.this,Submissions.class);
+                    startActivity(i);
+                }
             }
         });
+
         mNewsListView = (ListView) findViewById(R.id.newslistview);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
@@ -87,13 +121,22 @@ public class MainActivity extends AppCompatActivity
                     newsData news=newslist.get(position);
                     //Toast.makeText(MainActivity.this,obj.getName(),Toast.LENGTH_SHORT).show();
                     Intent i=new Intent(MainActivity.this,NewsDetails.class);
-                    i.putExtra("newslist", newslist);
-                    i.putExtra("position", position);
+                    i.putExtra("news", news);
                     startActivity(i);
                 }
 
             }
         });
+    }
+
+    protected boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -105,8 +148,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

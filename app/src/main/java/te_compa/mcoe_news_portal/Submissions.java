@@ -1,8 +1,11 @@
 package te_compa.mcoe_news_portal;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -51,7 +54,7 @@ public class Submissions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submissions);
         database = FirebaseDatabase.getInstance();
-
+        //database.setPersistenceEnabled(false);
         types = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Submissions.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.newsTypes));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -80,6 +83,10 @@ public class Submissions extends AppCompatActivity {
         subButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isOnline()){
+                    Toast.makeText(Submissions.this,"You are offline",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if( name.getText().toString().length() == 0 ){
                     name.setError( "News Title is required!" );
                     return;
@@ -101,14 +108,19 @@ public class Submissions extends AppCompatActivity {
 
 
     }
+    protected boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
         public void writeToDb(String name, String article,String type, boolean approved){
             Date d = Calendar.getInstance().getTime();
-
             myRef = database.getReference().child(type);
-           // Toast.makeText(getBaseContext(),type,Toast.LENGTH_SHORT).show();
-
             newsData newnews=new newsData(name,article,approved,imageUrl);
-            //DatabaseReference id =
                     myRef.push().setValue(newnews).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -116,10 +128,6 @@ public class Submissions extends AppCompatActivity {
                             finish();
                         }
                     });
-            //id.child("Name").setValue(name);
-            //id.child("Article").setValue(article);
-            //id.child("Approved").setValue(approved);
-            //readFromDb(id);
         }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -138,7 +146,6 @@ public class Submissions extends AppCompatActivity {
             }
         }
     }
-
 
     private void uploadImage() {
 
