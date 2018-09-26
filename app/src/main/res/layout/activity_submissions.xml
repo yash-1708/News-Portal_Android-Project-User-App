@@ -8,17 +8,17 @@
 
     <ScrollView
         android:id="@+id/nestedScrollView"
-        android:layout_width="368dp"
-        android:layout_height="428dp"
+        android:layout_width="0dp"
+        android:layout_height="413dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="41dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/submitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,5 +112,16 @@
         app:layout_constraintStart_toEndOf="@+id/submitButton"
         app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
         app:srcCompat="@mipmap/attachimage" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="387dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

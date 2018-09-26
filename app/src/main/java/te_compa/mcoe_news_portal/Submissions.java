@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,6 +42,7 @@ public class Submissions extends AppCompatActivity {
     DatabaseReference myRef;
     ImageButton imgbutton;
     private Uri filePath;
+    private Toolbar toolbar;
     ImageView imageView;
     FirebaseStorage storage;
     StorageReference storageReference;
@@ -51,8 +53,27 @@ public class Submissions extends AppCompatActivity {
     static Spinner types;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_submissions);
+        toolbar = (Toolbar) findViewById(R.id.toolbar4);
+        setSupportActionBar(toolbar);
+        //toolbar.setTitle("News");
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick (View v){
+                finish();
+            }
+        });
         database = FirebaseDatabase.getInstance();
         //database.setPersistenceEnabled(false);
         types = (Spinner) findViewById(R.id.spinner);

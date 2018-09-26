@@ -50,9 +50,15 @@ public class NewsDetails extends AppCompatActivity {
 
         setContentView(R.layout.activity_news_details);
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
         //toolbar.setTitle("News");
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         news = (newsData) getIntent().getSerializableExtra("news");
         headline = findViewById(R.id.newsDtitle);
         articleBody = findViewById(R.id.newsDarticle);
@@ -78,7 +84,12 @@ public class NewsDetails extends AppCompatActivity {
                 }
             }).into(newsImage);
         }
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 }
