@@ -82,7 +82,7 @@ public class Submissions extends AppCompatActivity {
         types.setAdapter(myAdapter);
         name = findViewById(R.id.name);
         article = findViewById(R.id.article);
-        Button subButton = findViewById(R.id.submitButton);
+        final Button subButton = findViewById(R.id.submitButton);
         imgbutton=findViewById(R.id.imageButton);
         imageView=findViewById(R.id.newsimage);
 
@@ -117,7 +117,7 @@ public class Submissions extends AppCompatActivity {
                     article.setError( "News Article is required!" );
                     return;
                 }
-
+                subButton.setEnabled(false);
                 if(filePath!=null)
                     uploadImage();
                 else
@@ -138,18 +138,18 @@ public class Submissions extends AppCompatActivity {
             return false;
         }
     }
-        public void writeToDb(String name, String article,String type, boolean approved){
-            Date d = Calendar.getInstance().getTime();
-            myRef = database.getReference().child(type);
-            newsData newnews=new newsData(name,article,approved,imageUrl);
-                    myRef.push().setValue(newnews).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            imageUrl = null;
-                            finish();
-                        }
-                    });
-        }
+    public void writeToDb(String name, String article,String type, boolean approved){
+        Date d = Calendar.getInstance().getTime();
+        myRef = database.getReference().child(type);
+        newsData newnews=new newsData(name,article,approved,imageUrl);
+        myRef.push().setValue(newnews).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                imageUrl = null;
+                finish();
+            }
+        });
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -192,6 +192,7 @@ public class Submissions extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
                             Toast.makeText(Submissions.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

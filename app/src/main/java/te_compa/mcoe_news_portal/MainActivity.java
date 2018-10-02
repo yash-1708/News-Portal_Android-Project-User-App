@@ -240,7 +240,9 @@ public class MainActivity extends AppCompatActivity
                 for (DataSnapshot newsDataSnapshot : dataSnapshot.getChildren()) {
                     newsData news = newsDataSnapshot.getValue(newsData.class);
                     Log.w("NewsData1", news.getNewsTitle() + news.getArticle());
-                    newslist.add(news);
+                    if(news.getApproved()){
+                        newslist.add(news);
+                    }
                 }
                 if(newslist.isEmpty())
                     noNews.setVisibility(TextView.VISIBLE);

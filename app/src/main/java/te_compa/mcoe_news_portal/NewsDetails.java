@@ -66,6 +66,7 @@ public class NewsDetails extends AppCompatActivity {
         headline.setText(news.getNewsTitle());
         articleBody.setText(news.getArticle());
         progressBar = findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.GONE);
         if(news.getImgurl() != null)
         {
             progressBar.setVisibility(View.VISIBLE);
