@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:gravity="center"
                 android:text="@string/title_home"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -55,13 +56,15 @@
             <ImageView
                 android:id="@+id/DevImage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/aboutusimage"
+                android:layout_height="281dp"
+                app:srcCompat="@mipmap/devpic"
                 tools:layout_editor_absoluteX="57dp"
                 tools:layout_editor_absoluteY="90dp" />
 
             <TextView
                 android:id="@+id/DevIntro"
+                android:autoLink="web"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="57dp"

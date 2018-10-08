@@ -25,7 +25,7 @@ public class DevInfo extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
-                    colImage.setImageResource(R.mipmap.aboutusimage);
+                    colImage.setImageResource(R.mipmap.devpic);
                     mTextMessage2.setText(R.string.devIntro);
                     return true;
                 case R.id.navigation_dashboard:
@@ -56,7 +56,7 @@ public class DevInfo extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         mTextMessage2=findViewById(R.id.DevIntro);
         mTextMessage.setText(R.string.title_home);
-        colImage.setImageResource(R.mipmap.aboutusimage);
+        colImage.setImageResource(R.mipmap.devpic);
         mTextMessage2.setText(R.string.devIntro);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

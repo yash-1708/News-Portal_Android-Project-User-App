@@ -40,10 +40,12 @@
     <string name="title_home">Developers</string>
     <string name="title_dashboard">College</string>
 
-    <string name="devIntro">Adhyantini Bogawat : \n
-                            Yash Bhandare : \n
-                            Steve Mendis : \n
-                            Sumit Bharsawade : \n </string>
+    <string name="devIntro"> \n\n\n
+                            Sumit Bharsawade : \n www.linkedin.com/in/SumitBharsawade \n\n\n
+                            Yash Bhandare : \n www.linkedin.com/in/YashBhandare \n\n\n
+                            Steve Mendis : \n www.linkedin.com/in/steve-mendis-32b408131/ \n\n\n
+                            Adhyantini Bogawat :\n www.linkedin.com/in/adhyantini-bogawat-a368b5155/\n\n
+    </string>
 
     <string name="colIntro">Progressive Education Society\'s Modern College of Engineering was established in the year 1999. The Institute is approved by All India Council of Technical Education (AICTE), New Delhi, Directorate of Technical Education (DTE), and Government of Maharashtra and is permanently affiliated to Savitribai Phule Pune University (SPPU), complying with all the norms and standards of engineering and management education. The Institute is UGC recognized under 2(f) and 12(B) and NAAC accredited and has been awarded the "Best College in the Urban Area" by SPPU. With a great vision and dynamic approach of our Principal, Prof. Dr. (Mrs.) K.R. Joshi the Institute has reached to the new height at national and international level.</string>
 
