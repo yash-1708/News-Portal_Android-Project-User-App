@@ -1,4 +1,4 @@
-package te_compa.mcoe_news_portal;
+package te_compa.mcoe_news_portal_user;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,15 +17,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +40,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,7 +48,8 @@ public class MainActivity extends AppCompatActivity
     TextView noNews;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    private ChildEventListener mChildEventListener;
+    private FirebaseAuth mAuth;
+    GoogleSignInClient mGoogleSignInClient;
     private NewsAdapter newsAdapter;
      ArrayList<newsData> newslist;
     private ProgressBar mProgressBar;
@@ -54,21 +58,24 @@ public class MainActivity extends AppCompatActivity
         newslist = null;
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-
+        //Intent i = new Intent(MainActivity.this,Splash.class);
+        //startActivity(i);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         FirebaseApp.initializeApp(this);
-
+        mAuth = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
         if (!isOnline())
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("You are Offline...");
-            builder.setIcon(R.mipmap.ic_launcher);
+            builder.setIcon(R.mipmap.wifioff);
             builder.setMessage("Do you want to exit?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -124,6 +131,7 @@ public class MainActivity extends AppCompatActivity
                     newsData news=newslist.get(position);
                     //Toast.makeText(MainActivity.this,obj.getName(),Toast.LENGTH_SHORT).show();
                     Intent i=new Intent(MainActivity.this,NewsDetails.class);
+
                     i.putExtra("news", news);
                     startActivity(i);
                 }
@@ -198,7 +206,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
             Intent shareintent = new Intent(android.content.Intent.ACTION_SEND);
             shareintent.setType("text/plain");
-            String shareBodyText = "Your shearing message goes here";
+            String shareBodyText = "https://drive.google.com/open?id=12-EQqTfRkLbsgc96MBc6WIg91jQY6f1Q";
             shareintent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Mcoe News Portal App");
             shareintent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
             startActivity(Intent.createChooser(shareintent, "Choose sharing method"));
@@ -218,7 +226,6 @@ public class MainActivity extends AppCompatActivity
                 newslist.clear();
                 for (DataSnapshot newsDataSnapshot : dataSnapshot.getChildren()) {
                     newsData news = newsDataSnapshot.getValue(newsData.class);
-                    Log.w("NewsData1", news.getNewsTitle() + news.getArticle());
                     if(news.getApproved()){
                         newslist.add(news);
                     }
@@ -236,9 +243,38 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+            Toast.makeText(MainActivity.this ,"Database Connection Error!",Toast.LENGTH_SHORT).show();
             }
         };
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.signout) {
+
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+
+            mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(this,gso);
+            mGoogleSignInClient.revokeAccess();
+            mAuth.signOut();
+            Intent i = new Intent(MainActivity.this,GoogleSignIn.class);
+            startActivity(i);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

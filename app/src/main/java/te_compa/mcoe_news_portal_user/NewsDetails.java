@@ -1,23 +1,14 @@
-package te_compa.mcoe_news_portal;
+package te_compa.mcoe_news_portal_user;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -30,15 +21,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NewsDetails extends AppCompatActivity {
-
-
-    private ViewPager mViewPager;
-    private static ArrayList<newsData> newsDataList;
-    public int newsPosition;
     newsData news;
     TextView headline;
     TextView articleBody;
@@ -52,7 +35,6 @@ public class NewsDetails extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
-        //toolbar.setTitle("News");
 
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -84,6 +66,18 @@ public class NewsDetails extends AppCompatActivity {
                     return false;
                 }
             }).into(newsImage);
+            newsImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse(news.getImgurl()),"image/*");
+                    startActivity(intent);
+                }
+            });
+        }
+        else{
+            newsImage.setImageResource(R.drawable.noimage);
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

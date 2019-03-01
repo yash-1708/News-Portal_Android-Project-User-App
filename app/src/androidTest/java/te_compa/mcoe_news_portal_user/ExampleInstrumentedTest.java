@@ -1,4 +1,4 @@
-package te_compa.mcoe_news_portal;
+package te_compa.mcoe_news_portal_user;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

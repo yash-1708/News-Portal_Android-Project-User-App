@@ -1,4 +1,4 @@
-package te_compa.mcoe_news_portal;
+package te_compa.mcoe_news_portal_user;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -32,7 +32,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.io.StringBufferInputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -75,7 +74,6 @@ public class Submissions extends AppCompatActivity {
             }
         });
         database = FirebaseDatabase.getInstance();
-        //database.setPersistenceEnabled(false);
         types = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Submissions.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.newsTypes));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

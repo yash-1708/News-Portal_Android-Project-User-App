@@ -1,7 +1,4 @@
-package te_compa.mcoe_news_portal;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package te_compa.mcoe_news_portal_user;
 
 import java.io.Serializable;
 import java.util.Calendar;
